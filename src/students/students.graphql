@@ -1,0 +1,43 @@
+type Query {
+    student(username: String!): Student!
+    totalStudents: Int!
+    allStudents: [Student!]!
+    getDate: FetchDate!
+}
+
+type Mutation {
+    createStudent(createStudentInput: CreateStudentInput): Student
+}
+
+type Subscription {
+    studentCreated: Student
+}
+
+type Student {
+    id: Int
+    username: String
+    name: String!
+    problems: Int
+    solves: Int
+    location: Location
+    avatar: String
+    specialization: String!
+    group: String!
+}
+
+type Location {
+    country: String
+    city: String
+}
+
+type FetchDate {
+    hours: Int,
+    minutes: Int,
+    seconds: Int
+}
+
+input CreateStudentInput {
+    name: String!,
+    specialization: String!,
+    group: String!
+}
