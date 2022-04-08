@@ -1,5 +1,6 @@
 type Query {
-    student(username: String!): Student!
+    getStudentById(id: Int!): Student!
+    getStudentByUsername(username: String!): Student!
     totalStudents: Int!
     allStudents: [Student!]!
     getDate: FetchDate!
@@ -14,7 +15,7 @@ type Subscription {
 }
 
 type Student {
-    id: Int
+    id: Int!
     username: String
     name: String!
     problems: Int

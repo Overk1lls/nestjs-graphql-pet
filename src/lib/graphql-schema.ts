@@ -14,7 +14,8 @@ export interface CreateStudentInput {
 }
 
 export interface IQuery {
-    student(username: string): Student | Promise<Student>;
+    getStudentById(id: number): Student | Promise<Student>;
+    getStudentByUsername(username: string): Student | Promise<Student>;
     totalStudents(): number | Promise<number>;
     allStudents(): Student[] | Promise<Student[]>;
     getDate(): FetchDate | Promise<FetchDate>;
@@ -29,7 +30,7 @@ export interface ISubscription {
 }
 
 export interface Student {
-    id?: Nullable<number>;
+    id: number;
     username?: Nullable<string>;
     name: string;
     problems?: Nullable<number>;
