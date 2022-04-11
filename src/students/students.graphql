@@ -15,7 +15,7 @@ type Subscription {
 }
 
 type Student {
-    id: Int!
+    id: Int
     username: String
     name: String!
     problems: Int

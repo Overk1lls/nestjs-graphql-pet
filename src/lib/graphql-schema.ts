@@ -30,7 +30,7 @@ export interface ISubscription {
 }
 
 export interface Student {
-    id: number;
+    id?: Nullable<number>;
     username?: Nullable<string>;
     name: string;
     problems?: Nullable<number>;

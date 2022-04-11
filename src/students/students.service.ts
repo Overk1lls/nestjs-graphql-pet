@@ -63,7 +63,7 @@ export class StudentsService {
     ];
 
     create = (student: Student) => {
-        student.id = this.students.length++;
+        student.id = this.students.length + 1;
         this.students.push(student);
         return student;
     };
