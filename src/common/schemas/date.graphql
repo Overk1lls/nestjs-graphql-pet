@@ -1,0 +1,9 @@
+type FetchDate {
+    hours: Int,
+    minutes: Int,
+    seconds: Int
+}
+
+type Query {
+    getDate: FetchDate!
+}

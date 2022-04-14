@@ -1,0 +1,14 @@
+body {
+    padding: 30px;
+    text-align: center;
+}
+
+.block .button-link {
+    margin-top: 50px;
+    font-size: 30px;
+}
+
+.button-link a {
+    text-decoration: none;
+    color: black;
+}

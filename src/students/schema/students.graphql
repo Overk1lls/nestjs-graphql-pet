@@ -1,0 +1,36 @@
+type Student {
+    id: Int
+    username: String
+    name: String!
+    problems: Int
+    solves: Int
+    location: Location
+    avatar: String
+    specialization: String!
+    group: String!
+}
+type Query {
+    getStudentById(id: Int!): Student!
+    getStudentByUsername(username: String!): Student!
+    totalStudents: Int!
+    allStudents: [Student!]!
+}
+
+type Mutation {
+    createStudent(createStudentInput: CreateStudentInput): Student
+}
+
+type Subscription {
+    studentCreated: Student
+}
+
+type Location {
+    country: String
+    city: String
+}
+
+input CreateStudentInput {
+    name: String!,
+    specialization: String!,
+    group: String!
+}
