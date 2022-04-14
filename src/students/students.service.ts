@@ -1,7 +1,9 @@
 import { Injectable } from '@nestjs/common';
-import { isNumber } from 'class-validator';
+import { InjectModel } from '@nestjs/mongoose';
 import { ErrorCode, ServerError } from '../errors/server-error';
 import { Student } from '../lib/graphql-schema';
+import { Model } from 'mongoose';
+import { StudentDocument } from './document/students.document';
 
 @Injectable()
 export class StudentsService {
@@ -64,8 +66,10 @@ export class StudentsService {
         },
     ];
 
-    create = (student: Student) => {
-        const userExists = this.find('name', student.name);
+    constructor(@InjectModel(Student.name) private readonly studentModel: Model<StudentDocument>) { }
+
+    create = async (student: Student) => {
+        const userExists = await this.studentModel.findOne({ name: student.name });
         if (userExists) {
             throw new ServerError(
                 ErrorCode.INVALID_REQUEST,
@@ -73,25 +77,34 @@ export class StudentsService {
             );
         }
         student.id = this.students.length + 1;
-        this.students.push(student);
+        await this.studentModel.create(student);
+
         return student;
     };
 
-    totalStudents = () => this.students.length;
+    totalStudents = async () => await this.studentModel.find({}).estimatedDocumentCount();
 
-    findAll = () => this.students;
-
-    findOneById = (id: number) => this.find('id', id);
-
-    findOneByUsername = (username: string) => this.find('username', username);
-
-    private find = (property: 'id' | 'username' | 'name', value: string | number) => {
-        if (property === 'id' && !isNumber(value)) {
-            throw new ServerError(ErrorCode.SERVER);
+    findAll = async () => {
+        const students = await this.studentModel.find({});
+        if (!students.length) {
+            throw new ServerError(ErrorCode.NOT_FOUND);
         }
-        const user = this.students.find(student => student[property] === value);
-        if (!user) throw new ServerError(ErrorCode.NOT_FOUND);
+        return students;
+    };
 
+    findOneById = async (id: number) => {
+        const user = await this.studentModel.findOne({ id });
+        if (!user) {
+            throw new ServerError(ErrorCode.NOT_FOUND);
+        }
+        return user;
+    };
+
+    findOneByUsername = async (username: string) => {
+        const user = await this.studentModel.findOne({ username });
+        if (!user) {
+            throw new ServerError(ErrorCode.NOT_FOUND);
+        }
         return user;
     };
 }
