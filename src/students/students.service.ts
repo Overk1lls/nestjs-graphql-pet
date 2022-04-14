@@ -2,7 +2,6 @@ import { Injectable } from '@nestjs/common';
 import { isNumber } from 'class-validator';
 import { ErrorCode, ServerError } from '../errors/server-error';
 import { Student } from '../lib/graphql-schema';
-import { CreateStudentDto } from './dto/create-student.dto';
 
 @Injectable()
 export class StudentsService {
@@ -65,20 +64,17 @@ export class StudentsService {
         },
     ];
 
-    create = (newStudent: CreateStudentDto) => {
-        const userExists = this.find('name', newStudent.name);
+    create = (student: Student) => {
+        const userExists = this.find('name', student.name);
         if (userExists) {
             throw new ServerError(
                 ErrorCode.INVALID_REQUEST,
                 'User already exists'
             );
         }
-        const createdStudent = {
-            ...newStudent,
-            id: this.students.length + 1
-        };
-        this.students.push(createdStudent);
-        return createdStudent;
+        student.id = this.students.length + 1;
+        this.students.push(student);
+        return student;
     };
 
     totalStudents = () => this.students.length;
@@ -93,6 +89,9 @@ export class StudentsService {
         if (property === 'id' && !isNumber(value)) {
             throw new ServerError(ErrorCode.SERVER);
         }
-        return this.students.find(student => student[property] === value);
-    }
+        const user = this.students.find(student => student[property] === value);
+        if (!user) throw new ServerError(ErrorCode.NOT_FOUND);
+
+        return user;
+    };
 }

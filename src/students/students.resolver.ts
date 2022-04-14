@@ -1,17 +1,16 @@
 import { Args, Mutation, Query, Resolver, Subscription } from '@nestjs/graphql';
-import { ParseIntPipe } from '@nestjs/common';
+import { ParseIntPipe, UseGuards } from '@nestjs/common';
 import { StudentsService } from './students.service';
 import { PubSub } from 'graphql-subscriptions';
 import { CreateStudentDto } from './dto/create-student.dto';
 import { FetchDate } from '../lib/graphql-schema';
+import { StudentsGuard } from './students.guard';
 
 const pubSub = new PubSub();
 
 @Resolver('Student')
 export class StudentsResolver {
-    constructor(private readonly studentsService: StudentsService) {
-        this.studentsService = new StudentsService();
-    }
+    constructor(private readonly studentsService: StudentsService) { }
 
     @Query('getStudentById')
     async getStudent(@Args('id', ParseIntPipe) id: number) {
@@ -29,6 +28,7 @@ export class StudentsResolver {
     }
 
     @Query('allStudents')
+    @UseGuards(StudentsGuard)
     async getStudents() {
         return this.studentsService.findAll();
     }

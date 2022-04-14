@@ -1,7 +1,10 @@
-import { Module } from '@nestjs/common';
+import { Module} from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { StudentsModule } from './students/students.module';
+import { config } from 'dotenv';
+
+config();
 
 @Module({
     imports: [
@@ -9,9 +12,9 @@ import { StudentsModule } from './students/students.module';
         GraphQLModule.forRoot<ApolloDriverConfig>({
             driver: ApolloDriver,
             typePaths: ['./**/*.graphql'],
-            installSubscriptionHandlers: true
+            installSubscriptionHandlers: true,
         }),
     ],
 })
 
-export class AppModule {}
+export class AppModule { }

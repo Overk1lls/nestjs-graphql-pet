@@ -1,6 +1,7 @@
 export enum ErrorCode {
     SERVER = 'INTERNAL_SERVER_ERROR',
     INVALID_REQUEST = 'INVALID_REQUEST',
+    NOT_FOUND = 'NOT_FOUND',
 }
 
 export interface IServerError {

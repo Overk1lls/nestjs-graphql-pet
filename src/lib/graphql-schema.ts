@@ -7,29 +7,31 @@
 
 /* tslint:disable */
 /* eslint-disable */
-export interface CreateStudentInput {
+export class CreateStudentInput {
     name: string;
     specialization: string;
     group: string;
 }
 
-export interface IQuery {
-    getStudentById(id: number): Student | Promise<Student>;
-    getStudentByUsername(username: string): Student | Promise<Student>;
-    totalStudents(): number | Promise<number>;
-    allStudents(): Student[] | Promise<Student[]>;
-    getDate(): FetchDate | Promise<FetchDate>;
+export class FetchDate {
+    hours?: Nullable<number>;
+    minutes?: Nullable<number>;
+    seconds?: Nullable<number>;
 }
 
-export interface IMutation {
-    createStudent(createStudentInput?: Nullable<CreateStudentInput>): Nullable<Student> | Promise<Nullable<Student>>;
+export abstract class IQuery {
+    abstract getDate(): FetchDate | Promise<FetchDate>;
+
+    abstract getStudentById(id: number): Student | Promise<Student>;
+
+    abstract getStudentByUsername(username: string): Student | Promise<Student>;
+
+    abstract totalStudents(): number | Promise<number>;
+
+    abstract allStudents(): Student[] | Promise<Student[]>;
 }
 
-export interface ISubscription {
-    studentCreated(): Nullable<Student> | Promise<Nullable<Student>>;
-}
-
-export interface Student {
+export class Student {
     id?: Nullable<number>;
     username?: Nullable<string>;
     name: string;
@@ -41,15 +43,17 @@ export interface Student {
     group: string;
 }
 
-export interface Location {
-    country?: Nullable<string>;
-    city?: Nullable<string>;
+export abstract class IMutation {
+    abstract createStudent(createStudentInput?: Nullable<CreateStudentInput>): Nullable<Student> | Promise<Nullable<Student>>;
 }
 
-export interface FetchDate {
-    hours?: Nullable<number>;
-    minutes?: Nullable<number>;
-    seconds?: Nullable<number>;
+export abstract class ISubscription {
+    abstract studentCreated(): Nullable<Student> | Promise<Nullable<Student>>;
+}
+
+export class Location {
+    country?: Nullable<string>;
+    city?: Nullable<string>;
 }
 
 type Nullable<T> = T | null;

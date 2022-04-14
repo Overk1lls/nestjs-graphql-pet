@@ -21,12 +21,15 @@
   "dependencies": {
     "@nestjs/apollo": "^10.0.8",
     "@nestjs/graphql": "^10.0.8",
+    "@nestjs/mongoose": "^9.0.3",
     "@nestjs/platform-express": "^8.4.4",
     "apollo-server-express": "^3.6.7",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.13.2",
+    "dotenv": "^16.0.0",
     "graphql": "^16.3.0",
     "graphql-subscriptions": "^2.0.0",
+    "mongoose": "^6.2.10",
     "rimraf": "^3.0.2"
   },
   "devDependencies": {
