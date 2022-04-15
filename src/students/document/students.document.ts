@@ -32,6 +32,9 @@ export class StudentClass extends Document {
 
     @Prop({ required: true })
     group!: string;
+
+    @Prop()
+    avatar: string;
 }
 
 export type StudentDocument = StudentClass & Document;

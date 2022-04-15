@@ -1,6 +1,6 @@
 {
   "name": "nestjs-graphql-test",
-  "version": "0.0.1",
+  "version": "0.5.1",
   "description": "Nestjs GraphQL Test Playground",
   "main": "build/index.js",
   "scripts": {
@@ -14,7 +14,9 @@
   },
   "keywords": [
     "nestjs",
-    "graphql"
+    "graphql",
+    "typescript",
+    "nodejs"
   ],
   "author": "Yurii Pakhota",
   "license": "ISC",
@@ -24,6 +26,7 @@
     "@nestjs/mongoose": "^9.0.3",
     "@nestjs/platform-express": "^8.4.4",
     "apollo-server-express": "^3.6.7",
+    "axios": "^0.26.1",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.13.2",
     "dotenv": "^16.0.0",

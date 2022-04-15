@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 @Injectable()
 export class StudentsGuard implements CanActivate {
     canActivate(context: ExecutionContext): boolean | Promise<boolean> | Observable<boolean> {
-        const ctx = GqlExecutionContext.create(context);
+        GqlExecutionContext.create(context);
         return true;
     }
 }
